@@ -2,85 +2,125 @@
    Global Styles
    ========================== */
 body {
-    font-family: Arial, Helvetica, sans-serif; /* Readable, web-safe font */
-    background: linear-gradient(to bottom, #f0f4f8, #d9e2ec); /* Subtle gradient */
-    margin: 0;
-    padding: 0;
-    color: #333; /* Good contrast for readability */
+  font-family: Arial, Helvetica, sans-serif;            /* Readable, web-safe font */
+  background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
+  margin: 0;
+  color: #333;
 }
 
 /* ==========================
    Header
    ========================== */
 header {
-    text-align: center;
-    background-color: #2a9d8f; /* Teal tone */
-    color: white;
-    padding: 20px;
-    font-size: 2em;
-    font-weight: bold;
+  text-align: center;
+  background-color: #2a9d8f;
+  color: #fff;
+  padding: 28px 16px;
 }
+header h1 { margin: 0 0 12px; }
 
 /* ==========================
-   Navigation Menu
+   Navigation (horizontal + hover transition)
    ========================== */
 nav ul {
-    list-style: none; /* Remove bullets */
-    padding: 0;
-    margin: 0;
-    display: flex; /* Horizontal layout */
-    justify-content: center;
-    background-color: #264653;
+  list-style: none;                 /* Remove bullets */
+  margin: 0;
+  padding: 0;
+  display: flex;                    /* Horizontal layout */
+  justify-content: center;
+  background-color: #264653;
 }
-
-nav ul li {
-    margin: 0 15px;
+nav li { margin: 0 18px; }
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 16px;
+  display: block;
+  border-radius: 6px;
+  /* Transition for hover per rubric */
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
-    display: block;
-    transition: background 0.3s, color 0.3s;
-}
-
-nav ul li a:hover {
-    background-color: #e76f51; /* Hover effect */
-    color: #fff;
-    border-radius: 5px;
+nav a:hover {
+  background-color: #e76f51;
+  color: #fff;
 }
 
 /* ==========================
-   Main Sections
+   Main Sections (card style + zoom on hover)
    ========================== */
 section {
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 900px;
-    background-color: #ffffff; 
-    border: 1px solid #ddd;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-    border-radius: 8px;
+  padding: 20px;
+  margin: 22px auto;
+  max-width: 980px;
+  background: #fff;
+  border: 1px solid #dde1e6;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  /* Smooth zoom transition per rubric */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-
+section:hover {
+  transform: scale(1.02);          /* Zoom effect per rubric */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
 section h2 {
-    color: #2a9d8f;
-    margin-bottom: 10px;
+  color: #2a9d8f;
+  margin-top: 0;
 }
-
-section p {
-    line-height: 1.6;
-}
+section p { line-height: 1.6; }
 
 /* ==========================
-   Footer
+   Projects Table Styling
+   - borders, padding, full width
+   - header background
+   - colgroup coloring (1st & 3rd cols)
    ========================== */
-footer {
-    text-align: center;
-    font-size: 0.9em;
-    padding: 15px;
-    background-color: #264653;
-    color: white;
-    margin-top: 30px;
+.projects-table {
+  width: 100%;
+  border-collapse: collapse;        /* Clean grid look */
+  margin-top: 10px;
+  overflow: hidden;                 /* Round corners */
+  border-radius: 10px;
+}
+.projects-table caption {
+  caption-side: top;
+  text-align: left;
+  padding: 10px 12px;
+  font-weight: bold;
+  color: #1f3f3a;
+}
+.projects-table thead th {
+  background: #e0f1ee;              /* Header background color */
+  color: #1c3a36;
+  text-align: left;
+}
+.projects-table th,
+.projects-table td {
+  border: 1px solid #cfd8dc;        /* Cell borders */
+  padding: 12px;                     /* Cell padding */
+  vertical-align: top;
+}
+.projects-table tfoot td {
+  background: #f7fafc;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Column coloring via <colgroup> classes */
+.projects-table col.col-1 { background: #f8fcff; }  /* First column */
+.projects-table col.col-3 { background: #f8fcff; }  /* Third column */
+.projects-table col.col-2 { background: #ffffff; }
+
+/* Make images tidy inside table */
+.projects-table img {
+  display: block;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+}
+
+/* Small screens responsiveness */
+@media (max-width: 640px) {
+  nav ul { flex-wrap: wrap; }
+  nav li { margin: 6px; }
+  section { margin: 16px 10px; }
 }
