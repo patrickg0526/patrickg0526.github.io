@@ -1,19 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Midterm: storefront structure + styles link -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PG Tech Shop — Student ID 54</title>
+  <title>PG Tech Shop — Student ID patgon2554</title>
   <link rel="stylesheet" href="storefront.css">
 </head>
 <body>
-  <!-- ===== Task 1: Header with studentID + store name ===== -->
   <header>
     <h1>PG Tech Shop</h1>
-    <p class="tagline">Student ID 54 • Simple Storefront</p>
+    <p class="tagline">Student ID patgon2554 • Simple Storefront</p>
 
-    <!-- ===== Task 1: Semantic nav with 3 internal links ===== -->
     <nav aria-label="Primary">
       <ul class="nav-list">
         <li><a href="#home">Home</a></li>
@@ -23,22 +20,18 @@
     </nav>
   </header>
 
-  <!-- ===== Task 1: Main + Section (product listing) ===== -->
   <main id="home">
     <section id="products" aria-labelledby="products-h">
       <h2 id="products-h">Store Inventory</h2>
-      <p>Browse a few featured items below. (Demo data for midterm.)</p>
 
-      <!-- ===== Task 5: Table with full semantics ===== -->
       <table class="inventory">
         <caption>Store Inventory</caption>
 
-        <!-- Apply background to 1st & 3rd columns via CSS -->
         <colgroup>
-          <col class="col1">
-          <col class="col2">
-          <col class="col3">
-          <col class="col4">
+          <col class="col1"><!-- Product -->
+          <col class="col2"><!-- Price -->
+          <col class="col3"><!-- Category -->
+          <col class="col4"><!-- Availability -->
         </colgroup>
 
         <thead>
@@ -53,21 +46,21 @@
         <tbody>
           <tr>
             <td>Wireless Mouse</td>
-            <td>$19.99</td>
+            <td><span class="price">$19.99</span></td>
             <td>Accessories</td>
-            <td>In Stock</td>
+            <td><span class="badge in-stock">In Stock</span></td>
           </tr>
           <tr>
             <td>Mechanical Keyboard</td>
-            <td>$59.99</td>
+            <td><span class="price">$59.99</span></td>
             <td>Accessories</td>
-            <td>Limited</td>
+            <td><span class="badge limited">Limited</span></td>
           </tr>
           <tr>
             <td>1080p Webcam</td>
-            <td>$34.99</td>
+            <td><span class="price">$34.99</span></td>
             <td>Peripherals</td>
-            <td>Backorder</td>
+            <td><span class="badge backorder">Backorder</span></td>
           </tr>
         </tbody>
 
@@ -85,7 +78,6 @@
     </section>
   </main>
 
-  <!-- ===== Task 1: Footer with copyright ===== -->
   <footer>
     <p>&copy; 2025 PG Tech Shop. All rights reserved.</p>
   </footer>
