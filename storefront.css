@@ -36,7 +36,6 @@ header h1 { margin: 0 0 6px; }
   padding: 0;                           /* remove extra UL padding */
   display: flex;                        /* Flexbox horizontal */
   justify-content: center;              /* center across page */
-  gap: 0;                               /* we’ll space via li margin */
 }
 .nav-list li { margin: 0 15px; }        /* per spec: 0 top/btm, 15 sides */
 
