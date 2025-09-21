@@ -1,0 +1,103 @@
+/* ==========================
+   Base / Reset (Task 3)
+   ========================== */
+* { box-sizing: border-box; }
+body {
+  margin: 0;                            /* remove default margin */
+  padding: 0;                           /* remove default padding */
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f2f2f2;                  /* light gray page bg */
+  color: #333;
+}
+
+/* ==========================
+   Layout containers (Task 3)
+   - center content and cap width
+   ========================== */
+header, main, footer {
+  max-width: 960px;                     /* required max width */
+  margin: 0 auto;                       /* center on page */
+  padding: 0 16px;
+}
+
+/* ==========================
+   Header + Nav (Tasks 1 & 4)
+   ========================== */
+header {
+  padding-top: 24px;
+  padding-bottom: 16px;
+}
+header h1 { margin: 0 0 6px; }
+.tagline { margin: 0 0 16px; color: #666; }
+
+.nav-list {
+  list-style: none;                     /* remove bullets */
+  margin: 0;                            /* remove extra UL margin */
+  padding: 0;                           /* remove extra UL padding */
+  display: flex;                        /* Flexbox horizontal */
+  justify-content: center;              /* center across page */
+  gap: 0;                               /* we’ll space via li margin */
+}
+.nav-list li { margin: 0 15px; }        /* per spec: 0 top/btm, 15 sides */
+
+.nav-list a {
+  display: block;                       /* block for padding area */
+  text-decoration: none;
+  color: #fff;
+  background: #333;
+  padding: 12px 20px;                   /* 12 vertical, 20 horizontal */
+  border-radius: 4px;                   /* slight rounding */
+  transition: background-color 0.3s;    /* hover transition */
+}
+.nav-list a:hover { background: #555; } /* hover color */
+
+/* ==========================
+   Sections as cards (Task 3)
+   ========================== */
+section {
+  background: #fff;                     /* white block bg */
+  padding: 20px;                        /* required padding */
+  margin: 20px 0;                       /* spacing between blocks */
+  /* light box shadow: 0 0 10px rgba(0,0,0,0.1) */
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* required shadow settings */
+  border-radius: 8px;
+}
+
+/* ==========================
+   Inventory table (Task 5)
+   ========================== */
+.inventory {
+  width: 100%;                          /* fill container */
+  border-collapse: collapse;            /* remove cell spacing */
+  margin-top: 8px;
+}
+.inventory caption {
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.inventory thead th {
+  background: #444;                     /* header bg */
+  color: #fff;                          /* header text color */
+  text-align: left;                     /* left-align text */
+}
+.inventory th,
+.inventory td {
+  border: 1px solid #ccc;               /* 1px light gray borders */
+  padding: 12px;                        /* cell padding */
+  vertical-align: top;
+  text-align: left;                     /* left-align all cells */
+}
+
+.inventory tfoot td {
+  text-align: center;                   /* center footer row content */
+  font-style: italic;                   /* italic footer */
+  border-top: 2px solid #ccc;           /* top border for separation */
+}
+
+/* Apply bg to 1st & 3rd columns via colgroup/col (Task 5) */
+.inventory col.col1,
+.inventory col.col3 {
+  background: #f9f9f9;                  /* light gray for columns 1 & 3 */
+}
