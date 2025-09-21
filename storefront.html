@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Midterm: storefront structure + styles link -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PG Tech Shop — Student ID 54</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ===== Task 1: Header with studentID + store name ===== -->
+  <header>
+    <h1>PG Tech Shop</h1>
+    <p class="tagline">Student ID 54 • Simple Storefront</p>
+
+    <!-- ===== Task 1: Semantic nav with 3 internal links ===== -->
+    <nav aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== Task 1: Main + Section (product listing) ===== -->
+  <main id="home">
+    <section id="products" aria-labelledby="products-h">
+      <h2 id="products-h">Store Inventory</h2>
+      <p>Browse a few featured items below. (Demo data for midterm.)</p>
+
+      <!-- ===== Task 5: Table with full semantics ===== -->
+      <table class="inventory">
+        <caption>Store Inventory</caption>
+
+        <!-- Apply background to 1st & 3rd columns via CSS -->
+        <colgroup>
+          <col class="col1">
+          <col class="col2">
+          <col class="col3">
+          <col class="col4">
+        </colgroup>
+
+        <thead>
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
+            <th scope="col">Availability</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Wireless Mouse</td>
+            <td>$19.99</td>
+            <td>Accessories</td>
+            <td>In Stock</td>
+          </tr>
+          <tr>
+            <td>Mechanical Keyboard</td>
+            <td>$59.99</td>
+            <td>Accessories</td>
+            <td>Limited</td>
+          </tr>
+          <tr>
+            <td>1080p Webcam</td>
+            <td>$34.99</td>
+            <td>Peripherals</td>
+            <td>Backorder</td>
+          </tr>
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <td colspan="4">3 items listed • Prices subject to change</td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-h">
+      <h2 id="contact-h">Contact</h2>
+      <p>Email: <a href="#">support@pgtechshop.example</a></p>
+    </section>
+  </main>
+
+  <!-- ===== Task 1: Footer with copyright ===== -->
+  <footer>
+    <p>&copy; 2025 PG Tech Shop. All rights reserved.</p>
+  </footer>
+</body>
+</html>
