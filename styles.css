@@ -1,10 +1,13 @@
 /* ==========================
    Global Styles
    ========================== */
+* { box-sizing: border-box; }
+
 body {
-  font-family: Arial, Helvetica, sans-serif;            /* Readable, web-safe font */
+  font-family: Arial, Helvetica, sans-serif; /* Readable, web-safe font */
   background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
-  margin: 0;
+  margin: 0;  /* remove default margin */
+  padding: 0; /* remove default padding */
   color: #333;
 }
 
@@ -14,53 +17,63 @@ body {
 header {
   text-align: center;
   background-color: #2a9d8f;
-  color: #fff;
+  color: white;
   padding: 28px 16px;
 }
 header h1 { margin: 0 0 12px; }
 
 /* ==========================
-   Navigation (horizontal + hover transition)
+   Navigation Menu (Flexbox + hover transition)
    ========================== */
 nav ul {
-  list-style: none;                 /* Remove bullets */
-  margin: 0;
+  list-style: none;           /* Remove bullets */
   padding: 0;
-  display: flex;                    /* Horizontal layout */
+  margin: 0;
+  display: flex;              /* Horizontal layout */
   justify-content: center;
   background-color: #264653;
 }
-nav li { margin: 0 18px; }
-nav a {
-  color: #fff;
+
+nav ul li { margin: 0 15px; }
+
+nav ul li a {
+  color: white;
   text-decoration: none;
-  padding: 12px 16px;
-  display: block;
+  padding: 12px 20px;
+  display: block;             /* block for easier padding click area */
   border-radius: 6px;
-  /* Transition for hover per rubric */
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-nav a:hover {
+
+nav ul li a:hover {
   background-color: #e76f51;
   color: #fff;
 }
 
 /* ==========================
-   Main Sections (card style + zoom on hover)
+   Main (Flexbox column + spacing)
+   ========================== */
+main {
+  display: flex;          /* required by 4.8 */
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==========================
+   Sections (card style + subtle zoom on hover)
    ========================== */
 section {
   padding: 20px;
   margin: 22px auto;
   max-width: 980px;
-  background: #fff;
-  border: 1px solid #dde1e6;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  /* Smooth zoom transition per rubric */
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 section:hover {
-  transform: scale(1.02);          /* Zoom effect per rubric */
+  transform: scale(1.02);
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 section h2 {
@@ -71,15 +84,12 @@ section p { line-height: 1.6; }
 
 /* ==========================
    Projects Table Styling
-   - borders, padding, full width
-   - header background
-   - colgroup coloring (1st & 3rd cols)
    ========================== */
 .projects-table {
   width: 100%;
-  border-collapse: collapse;        /* Clean grid look */
+  border-collapse: collapse;
   margin-top: 10px;
-  overflow: hidden;                 /* Round corners */
+  overflow: hidden;
   border-radius: 10px;
 }
 .projects-table caption {
@@ -90,14 +100,14 @@ section p { line-height: 1.6; }
   color: #1f3f3a;
 }
 .projects-table thead th {
-  background: #e0f1ee;              /* Header background color */
+  background: #e0f1ee;  /* header background color */
   color: #1c3a36;
   text-align: left;
 }
 .projects-table th,
 .projects-table td {
-  border: 1px solid #cfd8dc;        /* Cell borders */
-  padding: 12px;                     /* Cell padding */
+  border: 1px solid #cfd8dc;
+  padding: 12px;
   vertical-align: top;
 }
 .projects-table tfoot td {
@@ -105,22 +115,112 @@ section p { line-height: 1.6; }
   font-style: italic;
   text-align: center;
 }
-
-/* Column coloring via <colgroup> classes */
-.projects-table col.col-1 { background: #f8fcff; }  /* First column */
-.projects-table col.col-3 { background: #f8fcff; }  /* Third column */
+/* Column coloring via <colgroup> */
+.projects-table col.col-1 { background: #f8fcff; }
+.projects-table col.col-3 { background: #f8fcff; }
 .projects-table col.col-2 { background: #ffffff; }
-
-/* Make images tidy inside table */
+/* Tidy table images */
 .projects-table img {
   display: block;
   border-radius: 6px;
   box-shadow: 0 1px 6px rgba(0,0,0,0.08);
 }
 
-/* Small screens responsiveness */
-@media (max-width: 640px) {
-  nav ul { flex-wrap: wrap; }
-  nav li { margin: 6px; }
-  section { margin: 16px 10px; }
+/* ==========================
+   Contact Form (Flexbox + transitions + accessibility)
+   ========================== */
+.contact-form {
+  display: flex;                /* flex container for the form */
+  flex-direction: column;       /* vertical stack */
+  gap: 16px;                    /* consistent spacing */
+  max-width: 900px;
+}
+
+.contact-form .pair {           /* name + email pair: stacks on phones */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-form .form-row { display: flex; }
+.contact-form .field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.contact-form label {
+  font-weight: 600;
+  color: #1d3f3a;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  padding: 12px 14px;
+  border: 1px solid #cfd8dc;
+  border-radius: 8px;
+  background: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* required */
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: #95a1ad; }
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #2a9d8f;
+  box-shadow: 0 0 0 3px rgba(42,157,143,0.18); /* accessible focus ring */
+}
+
+/* Submit button with hover transition */
+.contact-form .btn {
+  background: #264653;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;      /* required */
+}
+.contact-form .btn:hover { background: #335d74; }
+.contact-form .btn:focus-visible {
+  outline: 3px solid #2a9d8f;
+  outline-offset: 2px;
+}
+
+/* Space for actions row */
+.contact-form .form-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* ==========================
+   Responsive Media Queries
+   Phone / Tablet / Desktop
+   ========================== */
+@media (min-width: 480px) {          /* phone min */
+  .contact-form { gap: 18px; }
+}
+
+@media (min-width: 768px) {          /* tablet */
+  .contact-form .pair {              /* place name & email side-by-side */
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1024px) {         /* desktop */
+  .contact-form { max-width: 760px; }
+}
+
+/* ==========================
+   Footer
+   ========================== */
+footer {
+  text-align: center;
+  font-size: 0.9em;
+  padding: 15px 0 30px;
+  color: #415a63;
 }
