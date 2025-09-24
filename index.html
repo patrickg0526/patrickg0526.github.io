@@ -1,13 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Meta + title -->
+  <!-- Homepage with responsive contact form (4.8 Project) -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Student portfolio homepage with structural and visual enhancements." />
-  <meta name="author" content="Patrick G." />
+  <meta name="description" content="Student portfolio homepage with responsive contact form." />
   <title>My Homepage</title>
-  <!-- Styles -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,6 +21,7 @@
     </nav>
   </header>
 
+  <!-- Main content -->
   <main id="main">
     <!-- About -->
     <section id="about" aria-labelledby="about-h">
@@ -33,27 +32,18 @@
       </p>
     </section>
 
-    <!-- Projects -->
+    <!-- Projects (includes table from earlier assignment) -->
     <section id="projects" aria-labelledby="projects-h">
       <h2 id="projects-h">Projects</h2>
       <p>Here are two sample projects with images, names, and short descriptions.</p>
 
-      <!--
-        PROJECTS TABLE — satisfies:
-        - <caption>, <thead>, <tbody>, <tfoot>
-        - <colgroup> coloring first & third columns
-        - <th>, <tr>, <td> for structure
-      -->
       <table class="projects-table">
         <caption>Sample Projects</caption>
-
-        <!-- Column group coloring 1st and 3rd columns -->
         <colgroup>
           <col class="col-1">
           <col class="col-2">
           <col class="col-3">
         </colgroup>
-
         <thead>
           <tr>
             <th scope="col">Preview</th>
@@ -61,7 +51,6 @@
             <th scope="col">Description</th>
           </tr>
         </thead>
-
         <tbody>
           <tr>
             <td>
@@ -82,7 +71,6 @@
             <td>Simple JavaScript app that tracks tasks and stores them locally.</td>
           </tr>
         </tbody>
-
         <tfoot>
           <tr>
             <td colspan="3">More projects coming soon…</td>
@@ -91,13 +79,44 @@
       </table>
     </section>
 
-    <!-- Contact -->
+    <!-- Contact (NEW: responsive, accessible form) -->
     <section id="contact" aria-labelledby="contact-h">
       <h2 id="contact-h">Contact</h2>
-      <p>
-        You can find me on GitHub at
-        <a href="https://github.com/patrickg0526">patrickg0526</a>.
-      </p>
+
+      <form id="contact-form" class="contact-form" action="#" method="post" novalidate>
+        <!-- Name + Email (required) -->
+        <div class="form-row pair">
+          <div class="field">
+            <label for="name">Your Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="name" name="name" required placeholder="Jane Doe">
+          </div>
+          <div class="field">
+            <label for="email">Email Address <span aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" required placeholder="you@example.com">
+          </div>
+        </div>
+
+        <!-- Subject -->
+        <div class="form-row">
+          <div class="field">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="How can I help?">
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="form-row">
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Type your message…"></textarea>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="form-actions">
+          <input type="submit" class="btn" value="Send Message">
+        </div>
+      </form>
     </section>
   </main>
 
