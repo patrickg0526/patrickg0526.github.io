@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Final Performance Assessment – responsive blog with contact form and animations." />
+  <title>PG Blog</title>
+
+  <!-- Task 3: Link to the separate stylesheet -->
+  <link rel="stylesheet" href="blog-styles.css">
+</head>
+<body class="blog-page">
+  <!-- Task 1: Header and navigation -->
+  <header class="blog-header fade-in">
+    <h1 class="blog-title">PG Blog</h1>
+    <p class="blog-tagline">Thoughts on Learning and Building in Web Development</p>
+
+    <nav class="blog-nav" aria-label="Primary">
+      <ul class="nav-list">
+        <li><a class="nav-link" href="#home">Home</a></li>
+        <li><a class="nav-link" href="#blog">Blog</a></li>
+        <li><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main content -->
+  <main id="home" class="blog-main fade-in">
+
+    <!-- Blog articles -->
+    <section id="blog" class="articles">
+      <article class="post card">
+        <h2 class="post-title">Why I’m Learning Web Development</h2>
+        <p>
+          I started this journey to better understand how websites work from the ground up.
+          Using HTML and CSS helps me think about structure, layout, and accessibility in everything I build.
+        </p>
+        <p>
+          My goal is to continue improving and eventually create full web applications that combine design and function seamlessly.
+        </p>
+      </article>
+
+      <article class="post card">
+        <h2 class="post-title">CSS Tricks That Make a Difference</h2>
+        <p>
+          Using Flexbox and media queries makes a site responsive without needing heavy frameworks.
+          Small touches like spacing, contrast, and hover effects also make the experience smoother.
+        </p>
+        <p>
+          This blog demonstrates how modern CSS and small animations can create a professional and readable layout.
+        </p>
+      </article>
+    </section>
+
+    <!-- Contact form section -->
+    <section id="contact" class="contact card fade-in" aria-labelledby="contact-h">
+      <h2 id="contact-h">Contact</h2>
+
+      <form class="contact-form" action="#" method="post" novalidate>
+        <div class="field-pair">
+          <div class="field">
+            <label for="name">Name <span aria-hidden="true">*</span></label>
+            <input id="name" name="name" type="text" required>
+          </div>
+
+          <div class="field">
+            <label for="email">Email <span aria-hidden="true">*</span></label>
+            <input id="email" name="email" type="email" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text">
+        </div>
+
+        <div class="field">
+          <label for="message">Message <span aria-hidden="true">*</span></label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+
+        <button class="btn" type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="blog-footer">
+    <p>&copy; 2025 Patrick G. • Student ID: patgon2554</p>
+  </footer>
+</body>
+</html>
