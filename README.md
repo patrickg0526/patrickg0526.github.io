@@ -32,6 +32,8 @@ Flexbox – For modern alignment and flexible design in navigation and forms.
 
 Below is a screenshot of my website running locally using XAMPP.
 (The image shows the localhost URL and my computer’s date and time.)
+<img width="1316" height="793" alt="image" src="https://github.com/user-attachments/assets/a93053ff-233f-4dc3-a5b8-32bd9a6ab2f0" />
+
 
 🤖 AI Assistance
 
