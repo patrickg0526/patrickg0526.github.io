@@ -67,7 +67,7 @@
                             </a>
                         </td>
                         <td><strong>Project One</strong></td>
-                        <td>Responsive landing page using semantic HTML & accessible navigation.</td>
+                        <td>Responsive landing page using semantic HTML &amp; accessible navigation.</td>
                     </tr>
 
                     <tr>
@@ -138,12 +138,19 @@
         &copy; <span id="year"></span> Patrick G. | Made with HTML5.
     </footer>
 
+    <!-- JavaScript: THIS is what triggers the prompt + heading change -->
     <script>
-        // Set year dynamically
+        // Set year dynamically in the footer
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // Personalized user greeting
+        /*
+            Personalized User Interaction:
+            - Prompt user for their name
+            - Store it in a variable
+            - Update the main heading text to include their name
+        */
         const userName = prompt("Welcome! What is your name?");
+
         const heading = document.getElementById("welcomeHeading");
 
         if (userName && userName.trim() !== "") {
