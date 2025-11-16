@@ -12,14 +12,13 @@
         File: index.html
         Class: SDC355 - 1.10 Project (GitHub Prep and Structural Implementation)
         Description:
-        Main portfolio page with navigation, About / Projects / Contact sections,
+        Portfolio page with navigation, About / Projects / Contact sections,
         and a personalized welcome message using JavaScript prompt().
     -->
 
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- Header + primary nav -->
     <header>
         <h1 id="welcomeHeading">Welcome to My Site!</h1>
         <nav aria-label="Primary">
@@ -31,9 +30,9 @@
         </nav>
     </header>
 
-    <!-- Main content -->
     <main id="main">
-        <!-- ABOUT -->
+
+        <!-- ABOUT SECTION -->
         <section id="about" aria-labelledby="about-h">
             <h2 id="about-h">About</h2>
             <p>
@@ -43,54 +42,48 @@
             </p>
         </section>
 
-        <!-- PROJECTS -->
+        <!-- PROJECTS SECTION -->
         <section id="projects" aria-labelledby="projects-h">
             <h2 id="projects-h">Projects</h2>
             <p>
                 Here are three sample projects with images, names, and short descriptions.
-                The links point to GitHub repositories (or placeholders for now).
+                The links point to GitHub repositories or placeholders for now.
             </p>
 
             <table aria-label="Sample Projects">
                 <caption>Sample Projects</caption>
                 <thead>
                     <tr>
-                        <th scope="col">Preview</th>
-                        <th scope="col">Project Name</th>
-                        <th scope="col">Description</th>
+                        <th>Preview</th>
+                        <th>Project Name</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Project One -->
                     <tr>
                         <td>
                             <a href="https://github.com/patrickg0526/project-one" target="_blank">
-                                <img src="https://via.placeholder.com/140x120?text=Project+1"
-                                     alt="Placeholder preview for Project One" />
+                                <img src="https://via.placeholder.com/160x120?text=Project+1" alt="Project 1 preview">
                             </a>
                         </td>
                         <td><strong>Project One</strong></td>
-                        <td>Responsive landing page using semantic HTML and accessible navigation.</td>
+                        <td>Responsive landing page using semantic HTML & accessible navigation.</td>
                     </tr>
 
-                    <!-- Project Two -->
                     <tr>
                         <td>
                             <a href="https://github.com/patrickg0526/project-two" target="_blank">
-                                <img src="https://via.placeholder.com/140x120?text=Project+2"
-                                     alt="Placeholder preview for Project Two" />
+                                <img src="https://via.placeholder.com/160x120?text=Project+2" alt="Project 2 preview">
                             </a>
                         </td>
                         <td><strong>Project Two</strong></td>
                         <td>Simple JavaScript app that tracks tasks and stores them locally.</td>
                     </tr>
 
-                    <!-- Project Three -->
                     <tr>
                         <td>
                             <a href="https://github.com/patrickg0526/project-three" target="_blank">
-                                <img src="https://via.placeholder.com/140x120?text=Project+3"
-                                     alt="Placeholder preview for Project Three" />
+                                <img src="https://via.placeholder.com/160x120?text=Project+3" alt="Project 3 preview">
                             </a>
                         </td>
                         <td><strong>Project Three</strong></td>
@@ -99,20 +92,18 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3" style="text-align:center;">
-                            More projects coming soon…
-                        </td>
+                        <td colspan="3" class="tfoot-note">More projects coming soon…</td>
                     </tr>
                 </tfoot>
             </table>
         </section>
 
-        <!-- CONTACT -->
+        <!-- CONTACT SECTION -->
         <section id="contact" aria-labelledby="contact-h">
             <h2 id="contact-h">Contact</h2>
             <p>
-                Use this simple form to send me a message. For this assignment, the form does not
-                need to actually send email; it is here to demonstrate structure and layout.
+                You can use this simple form to send me a message. It does not need to send email
+                for this assignment — it just demonstrates form structure.
             </p>
 
             <form>
@@ -147,19 +138,12 @@
         &copy; <span id="year"></span> Patrick G. | Made with HTML5.
     </footer>
 
-    <!-- JavaScript: prompt for name + dynamic welcome message -->
     <script>
-        // Set current year in the footer automatically
+        // Set year dynamically
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        /*
-            Personalized User Interaction:
-            - Prompt user for their name
-            - Store it in a variable
-            - Update the main heading text to include their name
-        */
+        // Personalized user greeting
         const userName = prompt("Welcome! What is your name?");
-
         const heading = document.getElementById("welcomeHeading");
 
         if (userName && userName.trim() !== "") {
