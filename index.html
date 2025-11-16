@@ -1,278 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Patrick Gonzalez | Portfolio</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Student portfolio homepage with projects and contact form." />
 
-    <!-- 
+    <title>Welcome to My Site!</title>
+
+    <!--
         Author: Patrick Gonzalez
         File: index.html
-        Description: Basic portfolio home page with navigation, 
-        About / Projects / Contact sections, and a personalized
-        welcome message using JavaScript and prompt().
+        Class: SDC355 - 1.10 Project (GitHub Prep and Structural Implementation)
+        Description:
+        Main portfolio page with navigation, About / Projects / Contact sections,
+        and a personalized welcome message using JavaScript prompt().
     -->
 
-    <!-- Required meta tags -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio site for Patrick Gonzalez">
-
-    <style>
-        /* Basic reset */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 1.6;
-            background-color: #f3f3f3;
-            color: #222;
-        }
-
-        header {
-            background-color: #2d0054;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin-bottom: 10px;
-        }
-
-        #welcomeMessage {
-            font-size: 1.1rem;
-        }
-
-        nav {
-            background-color: #3b0764;
-            padding: 10px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        main {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 15px 40px;
-        }
-
-        section {
-            margin-bottom: 40px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 6px;
-            box-shadow: 0 0 8px rgba(0,0,0,0.08);
-        }
-
-        section h2 {
-            margin-bottom: 10px;
-            color: #2d0054;
-        }
-
-        .project-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 15px;
-        }
-
-        .project {
-            flex: 1 1 250px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            overflow: hidden;
-            background-color: #fafafa;
-        }
-
-        .project img {
-            width: 100%;
-            display: block;
-        }
-
-        .project a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: #2d0054;
-            font-weight: bold;
-        }
-
-        .project a:hover {
-            background-color: #eee;
-        }
-
-        form label {
-            display: block;
-            margin: 10px 0 5px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="subject"],
-        textarea {
-            width: 100%;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        button[type="submit"] {
-            margin-top: 15px;
-            padding: 8px 20px;
-            border: none;
-            background-color: #2d0054;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #4c1d95;
-        }
-
-        footer {
-            text-align: center;
-            padding: 15px 0 25px;
-            font-size: 0.9rem;
-            color: #555;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
+    <!-- Header + primary nav -->
     <header>
-        <h1>Patrick Gonzalez | Portfolio</h1>
-        <!-- This text will be replaced with a personalized message in JavaScript -->
-        <p id="welcomeMessage">Welcome to my site!</p>
+        <h1 id="welcomeHeading">Welcome to My Site!</h1>
+        <nav aria-label="Primary">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Navigation menu linking to three sections with anchors -->
-    <nav>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-    </nav>
-
-    <main>
-        <!-- ABOUT SECTION -->
-        <section id="about">
-            <h2>About</h2>
+    <!-- Main content -->
+    <main id="main">
+        <!-- ABOUT -->
+        <section id="about" aria-labelledby="about-h">
+            <h2 id="about-h">About</h2>
             <p>
-                I’m Patrick, a software development student who’s getting comfortable
-                with HTML, CSS, and JavaScript while I work toward building real-world
-                projects. This site is the starting point for my portfolio and will
-                grow as I add more assignments and personal work.
+                I’m a student currently in school for software development. This site was
+                created as part of a class assignment and will continue to grow as I learn more
+                HTML, CSS, JavaScript, and other technologies.
             </p>
         </section>
 
-        <!-- PROJECTS SECTION -->
-        <section id="projects">
-            <h2>Projects</h2>
+        <!-- PROJECTS -->
+        <section id="projects" aria-labelledby="projects-h">
+            <h2 id="projects-h">Projects</h2>
             <p>
-                Here are a few projects I’m working on. These can link directly to
-                GitHub repositories or use placeholders for now.
+                Here are three sample projects with images, names, and short descriptions.
+                The links point to GitHub repositories (or placeholders for now).
             </p>
 
-            <div class="project-list">
-                <!-- Project 1 -->
-                <div class="project">
-                    <!-- Placeholder image, you can replace src with your own image later -->
-                    <a href="https://github.com/yourUsername/project-one" target="_blank">
-                        <img src="https://via.placeholder.com/400x200?text=Project+1" alt="Project 1 screenshot">
-                        Project One
-                    </a>
-                </div>
+            <table aria-label="Sample Projects">
+                <caption>Sample Projects</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Preview</th>
+                        <th scope="col">Project Name</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Project One -->
+                    <tr>
+                        <td>
+                            <a href="https://github.com/patrickg0526/project-one" target="_blank">
+                                <img src="https://via.placeholder.com/140x120?text=Project+1"
+                                     alt="Placeholder preview for Project One" />
+                            </a>
+                        </td>
+                        <td><strong>Project One</strong></td>
+                        <td>Responsive landing page using semantic HTML and accessible navigation.</td>
+                    </tr>
 
-                <!-- Project 2 -->
-                <div class="project">
-                    <a href="https://github.com/yourUsername/project-two" target="_blank">
-                        <img src="https://via.placeholder.com/400x200?text=Project+2" alt="Project 2 screenshot">
-                        Project Two
-                    </a>
-                </div>
+                    <!-- Project Two -->
+                    <tr>
+                        <td>
+                            <a href="https://github.com/patrickg0526/project-two" target="_blank">
+                                <img src="https://via.placeholder.com/140x120?text=Project+2"
+                                     alt="Placeholder preview for Project Two" />
+                            </a>
+                        </td>
+                        <td><strong>Project Two</strong></td>
+                        <td>Simple JavaScript app that tracks tasks and stores them locally.</td>
+                    </tr>
 
-                <!-- Project 3 -->
-                <div class="project">
-                    <a href="https://github.com/yourUsername/project-three" target="_blank">
-                        <img src="https://via.placeholder.com/400x200?text=Project+3" alt="Project 3 screenshot">
-                        Project Three
-                    </a>
-                </div>
-            </div>
+                    <!-- Project Three -->
+                    <tr>
+                        <td>
+                            <a href="https://github.com/patrickg0526/project-three" target="_blank">
+                                <img src="https://via.placeholder.com/140x120?text=Project+3"
+                                     alt="Placeholder preview for Project Three" />
+                            </a>
+                        </td>
+                        <td><strong>Project Three</strong></td>
+                        <td>Basic portfolio or practice project combining HTML, CSS, and JavaScript.</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" style="text-align:center;">
+                            More projects coming soon…
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </section>
 
-        <!-- CONTACT SECTION -->
-        <section id="contact">
-            <h2>Contact</h2>
+        <!-- CONTACT -->
+        <section id="contact" aria-labelledby="contact-h">
+            <h2 id="contact-h">Contact</h2>
             <p>
-                You can use this simple form to send me a message. (For this assignment,
-                the form does not need to actually send an email.)
+                Use this simple form to send me a message. For this assignment, the form does not
+                need to actually send email; it is here to demonstrate structure and layout.
             </p>
 
             <form>
-                <label for="senderName">Your Name</label>
-                <input type="text" id="senderName" name="senderName" placeholder="Enter your name">
+                <div class="contact-row">
+                    <div class="contact-field">
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" name="name" placeholder="Jane Doe" />
+                    </div>
 
-                <label for="senderEmail">Email Address</label>
-                <input type="email" id="senderEmail" name="senderEmail" placeholder="you@example.com">
+                    <div class="contact-field">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" />
+                    </div>
+                </div>
 
-                <label for="emailSubject">Subject</label>
-                <input type="text" id="emailSubject" name="emailSubject" placeholder="Subject">
+                <div class="contact-field">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="How can I help?" />
+                </div>
 
-                <label for="emailMessage">Message</label>
-                <textarea id="emailMessage" name="emailMessage" placeholder="Write your message here"></textarea>
+                <div class="contact-field">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Type your message..."></textarea>
+                </div>
 
-                <button type="submit">Submit</button>
+                <button type="submit">Send Message</button>
             </form>
         </section>
     </main>
 
     <footer>
-        &copy; <span id="year"></span> Patrick Gonzalez
+        &copy; <span id="year"></span> Patrick G. | Made with HTML5.
     </footer>
 
-    <!-- JavaScript for personalized welcome message -->
+    <!-- JavaScript: prompt for name + dynamic welcome message -->
     <script>
-        // Set the current year in the footer.
+        // Set current year in the footer automatically
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // -----------------------------------------------------------
-        // Personalized User Interaction:
-        // 1. Prompt the user for their name.
-        // 2. Store the value in a variable.
-        // 3. Update the welcome message at the top of the page.
-        // -----------------------------------------------------------
+        /*
+            Personalized User Interaction:
+            - Prompt user for their name
+            - Store it in a variable
+            - Update the main heading text to include their name
+        */
         const userName = prompt("Welcome! What is your name?");
 
-        const welcomeElement = document.getElementById("welcomeMessage");
+        const heading = document.getElementById("welcomeHeading");
 
         if (userName && userName.trim() !== "") {
-            // If a name was entered, use it in the greeting.
-            welcomeElement.textContent = "Welcome to my portfolio, " + userName + "!";
+            heading.textContent = "Welcome to My Site, " + userName + "!";
         } else {
-            // Fallback message if the user cancels or leaves it blank.
-            welcomeElement.textContent = "Welcome to my portfolio!";
+            heading.textContent = "Welcome to My Site!";
         }
     </script>
 </body>
