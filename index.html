@@ -1,163 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Student portfolio homepage with projects and contact form." />
+  <!--
+    SDC355 Unit 2 - Project 2.9: Control Flow Implementation
+    Author: Patrick Gonzalez
+    Date: 11/19/2025
+    Purpose: Portfolio page demonstrating conditional logic,
+             loops, dark mode, and form event handling in JavaScript.
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patrick Gonzalez | Portfolio</title>
 
-    <title>Welcome to My Site!</title>
+  <style>
+    /* ==========================
+       Base Layout & Typography
+       ========================== */
+    * {
+      box-sizing: border-box;
+    }
 
-    <!--
-        Author: Patrick Gonzalez
-        File: index.html
-        Class: SDC355 - 1.10 Project (GitHub Prep and Structural Implementation)
-        Description:
-        Portfolio page with navigation, About / Projects / Contact sections,
-        and a personalized welcome message using JavaScript prompt().
-    -->
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f4f4f4;
+      color: #222;
+      line-height: 1.6;
+    }
 
-    <link rel="stylesheet" href="styles.css" />
+    header {
+      background-color: #222;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1rem 3rem 1rem;
+    }
+
+    section {
+      margin-bottom: 2rem;
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.06);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ==========================
+       Dark Mode Styles
+       (toggled via .dark-mode on body)
+       ========================== */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f5f5f5;
+    }
+
+    body.dark-mode header {
+      background-color: #000;
+    }
+
+    body.dark-mode section {
+      background-color: #1f1f1f;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    body.dark-mode a {
+      color: #9ad0ff;
+    }
+
+    /* ==========================
+       Dark Mode Toggle Control
+       ========================== */
+    .toggle-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    /* Simple slider style for checkbox */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4caf50;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* ==========================
+       Featured Content Cards
+       ========================== */
+    .featured-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .feature-card {
+      flex: 1 1 280px;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: #fafafa;
+    }
+
+    .feature-card h3 {
+      margin-top: 0;
+    }
+
+    .feature-card img {
+      max-width: 100%;
+      border-radius: 6px;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    body.dark-mode .feature-card {
+      background-color: #262626;
+      border-color: #444;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* ==========================
+       Lists, Projects & Form
+       ========================== */
+    #skillsList {
+      margin-top: 0.5rem;
+    }
+
+    #projects ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+    }
+
+    .project-item {
+      margin-bottom: 0.4rem;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    textarea {
+      min-height: 120px;
+    }
+
+    button {
+      margin-top: 0.5rem;
+      padding: 0.6rem 1.4rem;
+      font-size: 0.95rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      background-color: #0066cc;
+      color: #fff;
+    }
+
+    button:hover {
+      background-color: #004f9e;
+    }
+
+    body.dark-mode button {
+      background-color: #2196f3;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <h1 id="welcomeHeading">Welcome to My Site!</h1>
-        <nav aria-label="Primary">
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <h1>Patrick Gonzalez | Web & Software Development</h1>
 
-    <main id="main">
+    <!-- Dark Mode Slider -->
+    <div class="toggle-wrapper">
+      <span>Dark Mode</span>
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </header>
 
-        <!-- ABOUT SECTION -->
-        <section id="about" aria-labelledby="about-h">
-            <h2 id="about-h">About</h2>
-            <p>
-                I’m a student currently in school for software development. This site was
-                created as part of a class assignment and will continue to grow as I learn more
-                HTML, CSS, JavaScript, and other technologies.
-            </p>
-        </section>
+  <main>
+    <!-- ==========================
+         About Section
+         ========================== -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        I'm a software development student building my portfolio and practicing
+        JavaScript, HTML, CSS, and version control with Git and GitHub.
+      </p>
 
-        <!-- PROJECTS SECTION -->
-        <section id="projects" aria-labelledby="projects-h">
-            <h2 id="projects-h">Projects</h2>
-            <p>
-                Here are three sample projects with images, names, and short descriptions.
-                The links point to GitHub repositories or placeholders for now.
-            </p>
+      <h3>Skills & Technologies</h3>
+      <!-- This UL will be filled dynamically using a loop in JavaScript -->
+      <ul id="skillsList"></ul>
+    </section>
 
-            <table aria-label="Sample Projects">
-                <caption>Sample Projects</caption>
-                <thead>
-                    <tr>
-                        <th>Preview</th>
-                        <th>Project Name</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a href="https://github.com/patrickg0526/project-one" target="_blank">
-                                <img src="https://via.placeholder.com/160x120?text=Project+1" alt="Project 1 preview">
-                            </a>
-                        </td>
-                        <td><strong>Project One</strong></td>
-                        <td>Responsive landing page using semantic HTML &amp; accessible navigation.</td>
-                    </tr>
+    <!-- ==========================
+         Featured Content (below About)
+         Uses conditional logic on load
+         ========================== -->
+    <section id="featured">
+      <h2>Featured Content</h2>
+      <p>
+        Depending on how many projects I currently have listed, you'll see
+        either university resources, personal projects, or both.
+      </p>
 
-                    <tr>
-                        <td>
-                            <a href="https://github.com/patrickg0526/project-two" target="_blank">
-                                <img src="https://via.placeholder.com/160x120?text=Project+2" alt="Project 2 preview">
-                            </a>
-                        </td>
-                        <td><strong>Project Two</strong></td>
-                        <td>Simple JavaScript app that tracks tasks and stores them locally.</td>
-                    </tr>
+      <div class="featured-container">
+        <!-- University Resources -->
+        <div id="universityResources" class="feature-card">
+          <h3>University Resources</h3>
+          <p>Helpful links for my program at ECPI:</p>
+          <ul>
+            <li>
+              <a href="https://www.ecpi.edu/" target="_blank">
+                ECPI University Home Page
+              </a>
+            </li>
+            <li>
+              <a href="https://ecpi.blackboard.com" target="_blank">
+                ECPI Online / Canvas / Blackboard
+              </a>
+            </li>
+          </ul>
+        </div>
 
-                    <tr>
-                        <td>
-                            <a href="https://github.com/patrickg0526/project-three" target="_blank">
-                                <img src="https://via.placeholder.com/160x120?text=Project+3" alt="Project 3 preview">
-                            </a>
-                        </td>
-                        <td><strong>Project Three</strong></td>
-                        <td>Basic portfolio or practice project combining HTML, CSS, and JavaScript.</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3" class="tfoot-note">More projects coming soon…</td>
-                    </tr>
-                </tfoot>
-            </table>
-        </section>
+        <!-- Personal Projects -->
+        <div id="personalProjects" class="feature-card">
+          <h3>Personal Projects</h3>
+          <p>Some of the work I'm building outside of class:</p>
 
-        <!-- CONTACT SECTION -->
-        <section id="contact" aria-labelledby="contact-h">
-            <h2 id="contact-h">Contact</h2>
-            <p>
-                You can use this simple form to send me a message. It does not need to send email
-                for this assignment — it just demonstrates form structure.
-            </p>
+          <!-- Image links to GitHub or web projects -->
+          <a href="https://github.com/patgon2554" target="_blank">
+            <img src="https://via.placeholder.com/400x200?text=GitHub+Portfolio"
+                 alt="GitHub Portfolio Project">
+          </a>
+          <a href="https://github.com/patgon2554" target="_blank">
+            <img src="https://via.placeholder.com/400x200?text=Web+App+Project"
+                 alt="Web App Project">
+          </a>
+        </div>
+      </div>
+    </section>
 
-            <form>
-                <div class="contact-row">
-                    <div class="contact-field">
-                        <label for="name">Your Name *</label>
-                        <input type="text" id="name" name="name" placeholder="Jane Doe" />
-                    </div>
+    <!-- ==========================
+         Projects Section
+         (Project count used in Featured Content logic)
+         ========================== -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <ul>
+        <li class="project-item">
+          <a href="https://github.com/patgon2554" target="_blank">
+            Portfolio Starter Site
+          </a>
+        </li>
+        <li class="project-item">
+          <a href="https://github.com/patgon2554" target="_blank">
+            JavaScript Practice Exercises
+          </a>
+        </li>
+        <!--
+          Add more <li class="project-item"> items here
+          If you reach 3 or more, the JS will hide the
+          University Resources card and show only Personal Projects.
+        -->
+      </ul>
+    </section>
 
-                    <div class="contact-field">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" placeholder="you@example.com" />
-                    </div>
-                </div>
+    <!-- ==========================
+         Contact Section
+         ========================== -->
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <p>Use this form to send me a quick message.</p>
 
-                <div class="contact-field">
-                    <label for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject" placeholder="How can I help?" />
-                </div>
+      <form id="contactForm">
+        <label for="nameInput">
+          Name:
+          <input type="text" id="nameInput" name="name" required>
+        </label>
 
-                <div class="contact-field">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" placeholder="Type your message..."></textarea>
-                </div>
+        <label for="emailInput">
+          Email:
+          <input type="email" id="emailInput" name="email" required>
+        </label>
 
-                <button type="submit">Send Message</button>
-            </form>
-        </section>
-    </main>
+        <label for="messageInput">
+          Message:
+          <textarea id="messageInput" name="message" required></textarea>
+        </label>
 
-    <footer>
-        &copy; <span id="year"></span> Patrick G. | Made with HTML5.
-    </footer>
+        <button type="submit" id="submitBtn">Submit</button>
+      </form>
+    </section>
+  </main>
 
-    <!-- JavaScript: THIS is what triggers the prompt + heading change -->
-    <script>
-        // Set year dynamically in the footer
-        document.getElementById("year").textContent = new Date().getFullYear();
+  <script>
+    // ==========================================
+    // 1. Conditional Logic for "Featured Content"
+    //    Uses project count to show/hide divs
+    // ==========================================
 
-        /*
-            Personalized User Interaction:
-            - Prompt user for their name
-            - Store it in a variable
-            - Update the main heading text to include their name
-        */
-        const userName = prompt("Welcome! What is your name?");
+    // Run this code when DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", function () {
+      const projectItems = document.querySelectorAll("#projects .project-item");
+      const universityDiv = document.getElementById("universityResources");
+      const personalDiv = document.getElementById("personalProjects");
 
-        const heading = document.getElementById("welcomeHeading");
+      // If fewer than 3 projects, show BOTH university resources and personal projects
+      // Otherwise, hide university resources and show only personal projects
+      if (projectItems.length < 3) {
+        universityDiv.classList.remove("hidden");
+        personalDiv.classList.remove("hidden");
+      } else {
+        universityDiv.classList.add("hidden");
+        personalDiv.classList.remove("hidden");
+      }
+    });
 
-        if (userName && userName.trim() !== "") {
-            heading.textContent = "Welcome to My Site, " + userName + "!";
-        } else {
-            heading.textContent = "Welcome to My Site!";
-        }
-    </script>
+    // ==========================================
+    // 2. Loop to Dynamically Create Skills List
+    // ==========================================
+
+    // Array of skills / technologies
+    const skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub"];
+
+    // Get the UL and populate it using a loop
+    const skillsList = document.getElementById("skillsList");
+
+    skills.forEach(function (skill) {
+      const li = document.createElement("li");
+      li.textContent = skill;
+      skillsList.appendChild(li);
+    });
+
+    // ==========================================
+    // 3. Dark Mode Slider using addEventListener
+    // ==========================================
+
+    const darkToggle = document.getElementById("darkModeToggle");
+
+    // When the checkbox changes, toggle the "dark-mode" class on <body>
+    darkToggle.addEventListener("change", function () {
+      document.body.classList.toggle("dark-mode", darkToggle.checked);
+    });
+
+    // ==========================================
+    // 4. Form Submit Button Interactivity
+    // ==========================================
+
+    const contactForm = document.getElementById("contactForm");
+    const nameInput = document.getElementById("nameInput");
+    const submitBtn = document.getElementById("submitBtn");
+
+    // When the user clicks Submit, prevent the page reload
+    // and show a personalized confirmation message.
+    submitBtn.addEventListener("click", function (event) {
+      event.preventDefault(); // stop the form from refreshing the page
+
+      const name = nameInput.value.trim() || "there";
+
+      alert("Thank you, " + name + ", your message has been sent!");
+    });
+  </script>
 </body>
 </html>
