@@ -3,10 +3,11 @@
 <head>
   <!--
     SDC355 Unit 2 - Project 2.9: Control Flow Implementation
+    Includes Week 1 Project (1.10) personalized welcome feature.
     Author: Patrick Gonzalez
     Date: 11/19/2025
     Purpose: Portfolio page demonstrating conditional logic,
-             loops, dark mode, and form event handling in JavaScript.
+             loops, dark mode, welcome message, and form interactions.
   -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,6 +44,11 @@
       font-size: 1.6rem;
     }
 
+    header p {
+      margin: 0.25rem 0 0 0;
+      font-size: 0.95rem;
+    }
+
     main {
       max-width: 1000px;
       margin: 0 auto;
@@ -72,7 +78,6 @@
 
     /* ==========================
        Dark Mode Styles
-       (toggled via .dark-mode on body)
        ========================== */
     body.dark-mode {
       background-color: #121212;
@@ -92,9 +97,7 @@
       color: #9ad0ff;
     }
 
-    /* ==========================
-       Dark Mode Toggle Control
-       ========================== */
+    /* Dark Mode Slider */
     .toggle-wrapper {
       display: flex;
       align-items: center;
@@ -102,7 +105,6 @@
       font-size: 0.9rem;
     }
 
-    /* Simple slider style for checkbox */
     .switch {
       position: relative;
       display: inline-block;
@@ -252,10 +254,17 @@
 </head>
 
 <body>
-  <header>
-    <h1>Patrick Gonzalez | Web & Software Development</h1>
 
-    <!-- Dark Mode Slider -->
+  <!-- ==========================
+       HEADER WITH WELCOME MESSAGE (from 1.10)
+       ========================== -->
+  <header>
+    <div>
+      <h1>Patrick Gonzalez | Web & Software Development</h1>
+      <p id="welcomeMessage">Welcome to my portfolio!</p>
+    </div>
+
+    <!-- Dark Mode Toggle -->
     <div class="toggle-wrapper">
       <span>Dark Mode</span>
       <label class="switch">
@@ -267,7 +276,7 @@
 
   <main>
     <!-- ==========================
-         About Section
+         ABOUT
          ========================== -->
     <section id="about">
       <h2>About Me</h2>
@@ -277,104 +286,64 @@
       </p>
 
       <h3>Skills & Technologies</h3>
-      <!-- This UL will be filled dynamically using a loop in JavaScript -->
       <ul id="skillsList"></ul>
     </section>
 
     <!-- ==========================
-         Featured Content (below About)
-         Uses conditional logic on load
+         FEATURED CONTENT (Conditional Logic)
          ========================== -->
     <section id="featured">
       <h2>Featured Content</h2>
-      <p>
-        Depending on how many projects I currently have listed, you'll see
-        either university resources, personal projects, or both.
-      </p>
 
       <div class="featured-container">
-        <!-- University Resources -->
         <div id="universityResources" class="feature-card">
           <h3>University Resources</h3>
-          <p>Helpful links for my program at ECPI:</p>
           <ul>
-            <li>
-              <a href="https://www.ecpi.edu/" target="_blank">
-                ECPI University Home Page
-              </a>
-            </li>
-            <li>
-              <a href="https://ecpi.blackboard.com" target="_blank">
-                ECPI Online / Canvas / Blackboard
-              </a>
-            </li>
+            <li><a href="https://www.ecpi.edu/" target="_blank">ECPI Home Page</a></li>
+            <li><a href="https://ecpi.blackboard.com" target="_blank">Blackboard / Canvas</a></li>
           </ul>
         </div>
 
-        <!-- Personal Projects -->
         <div id="personalProjects" class="feature-card">
           <h3>Personal Projects</h3>
-          <p>Some of the work I'm building outside of class:</p>
-
-          <!-- Image links to GitHub or web projects -->
           <a href="https://github.com/patgon2554" target="_blank">
-            <img src="https://via.placeholder.com/400x200?text=GitHub+Portfolio"
-                 alt="GitHub Portfolio Project">
-          </a>
-          <a href="https://github.com/patgon2554" target="_blank">
-            <img src="https://via.placeholder.com/400x200?text=Web+App+Project"
-                 alt="Web App Project">
+            <img src="https://via.placeholder.com/400x200?text=GitHub+Project" alt="Project">
           </a>
         </div>
       </div>
     </section>
 
     <!-- ==========================
-         Projects Section
-         (Project count used in Featured Content logic)
+         PROJECTS
          ========================== -->
     <section id="projects">
       <h2>Projects</h2>
       <ul>
         <li class="project-item">
-          <a href="https://github.com/patgon2554" target="_blank">
-            Portfolio Starter Site
-          </a>
+          <a href="https://github.com/patgon2554" target="_blank">Portfolio Starter</a>
         </li>
         <li class="project-item">
-          <a href="https://github.com/patgon2554" target="_blank">
-            JavaScript Practice Exercises
-          </a>
+          <a href="https://github.com/patgon2554" target="_blank">JavaScript Practice</a>
         </li>
-        <!--
-          Add more <li class="project-item"> items here
-          If you reach 3 or more, the JS will hide the
-          University Resources card and show only Personal Projects.
-        -->
       </ul>
     </section>
 
     <!-- ==========================
-         Contact Section
+         CONTACT FORM
          ========================== -->
     <section id="contact">
       <h2>Contact Me</h2>
-      <p>Use this form to send me a quick message.</p>
-
       <form id="contactForm">
-        <label for="nameInput">
-          Name:
-          <input type="text" id="nameInput" name="name" required>
+        <label>Name:
+          <input type="text" id="nameInput" required>
         </label>
 
-        <label for="emailInput">
-          Email:
-          <input type="email" id="emailInput" name="email" required>
+        <label>Email:
+          <input type="email" id="emailInput" required>
         </label>
 
-        <label for="messageInput">
-          Message:
-          <textarea id="messageInput" name="message" required></textarea>
+        <label>Message:
+          <textarea id="messageInput" required></textarea>
         </label>
 
         <button type="submit" id="submitBtn">Submit</button>
@@ -384,18 +353,29 @@
 
   <script>
     // ==========================================
-    // 1. Conditional Logic for "Featured Content"
-    //    Uses project count to show/hide divs
+    // 0. Personalized Welcome Message (From 1.10)
     // ==========================================
 
-    // Run this code when DOM is fully loaded
-    document.addEventListener("DOMContentLoaded", function () {
+    let userName = prompt("Welcome! What is your name?");
+
+    if (!userName || userName.trim() === "") {
+      userName = "there";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const welcomeMessage = document.getElementById("welcomeMessage");
+      welcomeMessage.textContent = "Welcome, " + userName + "!";
+    });
+
+    // ==========================================
+    // 1. Conditional Logic for Featured Content
+    // ==========================================
+
+    document.addEventListener("DOMContentLoaded", () => {
       const projectItems = document.querySelectorAll("#projects .project-item");
       const universityDiv = document.getElementById("universityResources");
       const personalDiv = document.getElementById("personalProjects");
 
-      // If fewer than 3 projects, show BOTH university resources and personal projects
-      // Otherwise, hide university resources and show only personal projects
       if (projectItems.length < 3) {
         universityDiv.classList.remove("hidden");
         personalDiv.classList.remove("hidden");
@@ -406,49 +386,42 @@
     });
 
     // ==========================================
-    // 2. Loop to Dynamically Create Skills List
+    // 2. Skills Loop
     // ==========================================
 
-    // Array of skills / technologies
     const skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub"];
-
-    // Get the UL and populate it using a loop
     const skillsList = document.getElementById("skillsList");
 
-    skills.forEach(function (skill) {
+    skills.forEach(skill => {
       const li = document.createElement("li");
       li.textContent = skill;
       skillsList.appendChild(li);
     });
 
     // ==========================================
-    // 3. Dark Mode Slider using addEventListener
+    // 3. Dark Mode Toggle
     // ==========================================
 
     const darkToggle = document.getElementById("darkModeToggle");
 
-    // When the checkbox changes, toggle the "dark-mode" class on <body>
     darkToggle.addEventListener("change", function () {
       document.body.classList.toggle("dark-mode", darkToggle.checked);
     });
 
     // ==========================================
-    // 4. Form Submit Button Interactivity
+    // 4. Contact Form Submission
     // ==========================================
 
-    const contactForm = document.getElementById("contactForm");
-    const nameInput = document.getElementById("nameInput");
     const submitBtn = document.getElementById("submitBtn");
+    const nameInput = document.getElementById("nameInput");
 
-    // When the user clicks Submit, prevent the page reload
-    // and show a personalized confirmation message.
     submitBtn.addEventListener("click", function (event) {
-      event.preventDefault(); // stop the form from refreshing the page
+      event.preventDefault();
 
-      const name = nameInput.value.trim() || "there";
-
-      alert("Thank you, " + name + ", your message has been sent!");
+      const enteredName = nameInput.value.trim() || "there";
+      alert("Thank you, " + enteredName + ", your message has been sent!");
     });
   </script>
+
 </body>
 </html>
