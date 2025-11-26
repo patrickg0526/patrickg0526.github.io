@@ -1,427 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--
-    SDC355 Unit 2 - Project 2.9: Control Flow Implementation
-    Includes Week 1 Project (1.10) personalized welcome feature.
-    Author: Patrick Gonzalez
-    Date: 11/19/2025
-    Purpose: Portfolio page demonstrating conditional logic,
-             loops, dark mode, welcome message, and form interactions.
-  -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Patrick Gonzalez | Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Gonzalez | Portfolio</title>
 
-  <style>
-    /* ==========================
-       Base Layout & Typography
-       ========================== */
-    * {
-      box-sizing: border-box;
-    }
+    <!--
+        Project: 3.9 - Creating and Referencing DOM Elements
+        Author: Patrick Gonzalez
+        Date: 11/26/2025
+        Description:
+        Portfolio page that demonstrates DOM manipulation by:
+        - Dynamically creating and inserting new elements.
+        - Selecting and modifying existing elements with querySelector
+          and getElementById.
+        - Using timing functions (setTimeout) to enhance the contact
+          form with a delayed confirmation message.
+    -->
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #f4f4f4;
-      color: #222;
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: #222;
-      color: #fff;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 1.6rem;
-    }
-
-    header p {
-      margin: 0.25rem 0 0 0;
-      font-size: 0.95rem;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 2rem 1rem 3rem 1rem;
-    }
-
-    section {
-      margin-bottom: 2rem;
-      background-color: #fff;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.06);
-    }
-
-    h2 {
-      margin-top: 0;
-    }
-
-    a {
-      color: #0066cc;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* ==========================
-       Dark Mode Styles
-       ========================== */
-    body.dark-mode {
-      background-color: #121212;
-      color: #f5f5f5;
-    }
-
-    body.dark-mode header {
-      background-color: #000;
-    }
-
-    body.dark-mode section {
-      background-color: #1f1f1f;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-
-    body.dark-mode a {
-      color: #9ad0ff;
-    }
-
-    /* Dark Mode Slider */
-    .toggle-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 46px;
-      height: 24px;
-    }
-
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: .4s;
-      border-radius: 24px;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
-
-    input:checked + .slider {
-      background-color: #4caf50;
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(22px);
-    }
-
-    /* ==========================
-       Featured Content Cards
-       ========================== */
-    .featured-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .feature-card {
-      flex: 1 1 280px;
-      border: 1px solid #ddd;
-      padding: 1rem;
-      border-radius: 8px;
-      background-color: #fafafa;
-    }
-
-    .feature-card h3 {
-      margin-top: 0;
-    }
-
-    .feature-card img {
-      max-width: 100%;
-      border-radius: 6px;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    body.dark-mode .feature-card {
-      background-color: #262626;
-      border-color: #444;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* ==========================
-       Lists, Projects & Form
-       ========================== */
-    #skillsList {
-      margin-top: 0.5rem;
-    }
-
-    #projects ul {
-      list-style: disc;
-      padding-left: 1.5rem;
-    }
-
-    .project-item {
-      margin-bottom: 0.4rem;
-    }
-
-    form label {
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.25rem;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      font-family: inherit;
-      font-size: 0.95rem;
-    }
-
-    textarea {
-      min-height: 120px;
-    }
-
-    button {
-      margin-top: 0.5rem;
-      padding: 0.6rem 1.4rem;
-      font-size: 0.95rem;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      background-color: #0066cc;
-      color: #fff;
-    }
-
-    button:hover {
-      background-color: #004f9e;
-    }
-
-    body.dark-mode button {
-      background-color: #2196f3;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-    }
-  </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+    <header>
+        <h1>Patrick Gonzalez, Portfolio</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-  <!-- ==========================
-       HEADER WITH WELCOME MESSAGE (from 1.10)
-       ========================== -->
-  <header>
-    <div>
-      <h1>Patrick Gonzalez | Web & Software Development</h1>
-      <p id="welcomeMessage">Welcome to my portfolio!</p>
-    </div>
+    <main>
+        <!-- About section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <p>
+                I am a software development student focusing on web technologies
+                like HTML, CSS, and JavaScript. This portfolio showcases the work
+                I have completed throughout my SDC355 course.
+            </p>
+        </section>
 
-    <!-- Dark Mode Toggle -->
-    <div class="toggle-wrapper">
-      <span>Dark Mode</span>
-      <label class="switch">
-        <input type="checkbox" id="darkModeToggle">
-        <span class="slider"></span>
-      </label>
-    </div>
-  </header>
+        <!-- Projects section (JavaScript will append new content here) -->
+        <section id="projects-section">
+            <h2 id="projects">Projects</h2>
 
-  <main>
-    <!-- ==========================
-         ABOUT
-         ========================== -->
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        I'm a software development student building my portfolio and practicing
-        JavaScript, HTML, CSS, and version control with Git and GitHub.
-      </p>
+            <ul class="project-list">
+                <li>Responsive storefront homepage using HTML &amp; CSS.</li>
+                <li>Blog layout with styled typography and navigation.</li>
+                <li>JavaScript exercises: loops, control structures, and DOM events.</li>
+            </ul>
+        </section>
 
-      <h3>Skills & Technologies</h3>
-      <ul id="skillsList"></ul>
-    </section>
+        <!-- Contact section with form -->
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <p>Have a question about my projects or coursework? Send me a message below.</p>
 
-    <!-- ==========================
-         FEATURED CONTENT (Conditional Logic)
-         ========================== -->
-    <section id="featured">
-      <h2>Featured Content</h2>
+            <form id="contact-form">
+                <div class="form-row">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
 
-      <div class="featured-container">
-        <div id="universityResources" class="feature-card">
-          <h3>University Resources</h3>
-          <ul>
-            <li><a href="https://www.ecpi.edu/" target="_blank">ECPI Home Page</a></li>
-            <li><a href="https://ecpi.blackboard.com" target="_blank">Blackboard / Canvas</a></li>
-          </ul>
-        </div>
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
 
-        <div id="personalProjects" class="feature-card">
-          <h3>Personal Projects</h3>
-          <a href="https://github.com/patgon2554" target="_blank">
-            <img src="https://via.placeholder.com/400x200?text=GitHub+Project" alt="Project">
-          </a>
-        </div>
-      </div>
-    </section>
+                <div class="form-row">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                </div>
 
-    <!-- ==========================
-         PROJECTS
-         ========================== -->
-    <section id="projects">
-      <h2>Projects</h2>
-      <ul>
-        <li class="project-item">
-          <a href="https://github.com/patgon2554" target="_blank">Portfolio Starter</a>
-        </li>
-        <li class="project-item">
-          <a href="https://github.com/patgon2554" target="_blank">JavaScript Practice</a>
-        </li>
-      </ul>
-    </section>
+                <button type="submit">Send Message</button>
+            </form>
 
-    <!-- ==========================
-         CONTACT FORM
-         ========================== -->
-    <section id="contact">
-      <h2>Contact Me</h2>
-      <form id="contactForm">
-        <label>Name:
-          <input type="text" id="nameInput" required>
-        </label>
+            <!-- Status text that JavaScript will update -->
+            <p id="form-status" class="status"></p>
+        </section>
+    </main>
 
-        <label>Email:
-          <input type="email" id="emailInput" required>
-        </label>
+    <footer>
+        <p>&copy; <span id="year"></span> Patrick Gonzalez. All rights reserved.</p>
+    </footer>
 
-        <label>Message:
-          <textarea id="messageInput" required></textarea>
-        </label>
+    <!-- ===================== JavaScript ===================== -->
+    <script>
+        /*
+          3.9 Project - Creating and Referencing DOM Elements
+          This script:
+          - Dynamically adds new DOM elements (notification banner and latest project).
+          - Uses selectors to modify existing elements and styles.
+          - Enhances the contact form with a timed confirmation using setTimeout().
+        */
 
-        <button type="submit" id="submitBtn">Submit</button>
-      </form>
-    </section>
-  </main>
+        // Run when the DOM is fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
 
-  <script>
-    // ==========================================
-    // 0. Personalized Welcome Message (From 1.10)
-    // ==========================================
+            // ---------- 0. Set footer year ----------
+            const yearSpan = document.getElementById("year");
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
 
-    let userName = prompt("Welcome! What is your name?");
+            // ---------- 1. Dynamically add new elements ----------
 
-    if (!userName || userName.trim() === "") {
-      userName = "there";
-    }
+            // 1a. Add a new paragraph about the latest project to the Projects section
+            const projectsSection = document.getElementById("projects-section");
+            if (projectsSection) {
+                const newProjectPara = document.createElement("p");
+                newProjectPara.textContent =
+                    "Latest project: An interactive JavaScript portfolio that uses DOM manipulation and timing functions.";
+                newProjectPara.classList.add("new-project");
+                projectsSection.appendChild(newProjectPara);
+            }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const welcomeMessage = document.getElementById("welcomeMessage");
-      welcomeMessage.textContent = "Welcome, " + userName + "!";
-    });
+            // 1b. Add a notification banner at the top of the page after a short delay
+            setTimeout(function () {
+                const banner = document.createElement("div");
+                banner.id = "page-notice";
+                banner.textContent =
+                    "Welcome! This page is part of my SDC355 JavaScript project.";
+                // Insert banner as the first child inside <body>
+                document.body.insertBefore(banner, document.body.firstChild);
+            }, 2000);
 
-    // ==========================================
-    // 1. Conditional Logic for Featured Content
-    // ==========================================
+            // ---------- 2. Reference & modify existing elements ----------
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const projectItems = document.querySelectorAll("#projects .project-item");
-      const universityDiv = document.getElementById("universityResources");
-      const personalDiv = document.getElementById("personalProjects");
+            // 2a. Update the main heading text using querySelector()
+            const mainHeading = document.querySelector("header h1");
+            if (mainHeading) {
+                mainHeading.textContent = "Patrick Gonzalez | Web Development Portfolio";
+            }
 
-      if (projectItems.length < 3) {
-        universityDiv.classList.remove("hidden");
-        personalDiv.classList.remove("hidden");
-      } else {
-        universityDiv.classList.add("hidden");
-        personalDiv.classList.remove("hidden");
-      }
-    });
+            // 2b. Add styling to the About section using getElementById()
+            const aboutSection = document.getElementById("about");
+            if (aboutSection) {
+                aboutSection.classList.add("highlight-section");
+            }
 
-    // ==========================================
-    // 2. Skills Loop
-    // ==========================================
+            // ---------- 3. Timed confirmation for the contact form ----------
 
-    const skills = ["HTML", "CSS", "JavaScript", "Git", "GitHub"];
-    const skillsList = document.getElementById("skillsList");
+            const contactForm = document.getElementById("contact-form");
+            const statusArea = document.getElementById("form-status");
 
-    skills.forEach(skill => {
-      const li = document.createElement("li");
-      li.textContent = skill;
-      skillsList.appendChild(li);
-    });
+            if (contactForm && statusArea) {
+                contactForm.addEventListener("submit", function (event) {
+                    // Prevent the default submit (no page reload)
+                    event.preventDefault();
 
-    // ==========================================
-    // 3. Dark Mode Toggle
-    // ==========================================
+                    // Show a loading / sending message immediately
+                    statusArea.textContent = "Sending message...";
+                    statusArea.className = "status sending";
 
-    const darkToggle = document.getElementById("darkModeToggle");
-
-    darkToggle.addEventListener("change", function () {
-      document.body.classList.toggle("dark-mode", darkToggle.checked);
-    });
-
-    // ==========================================
-    // 4. Contact Form Submission
-    // ==========================================
-
-    const submitBtn = document.getElementById("submitBtn");
-    const nameInput = document.getElementById("nameInput");
-
-    submitBtn.addEventListener("click", function (event) {
-      event.preventDefault();
-
-      const enteredName = nameInput.value.trim() || "there";
-      alert("Thank you, " + enteredName + ", your message has been sent!");
-    });
-  </script>
-
+                    // Simulate a delay of 2.5 seconds before confirming
+                    setTimeout(function () {
+                        statusArea.textContent = "Message sent successfully!";
+                        statusArea.className = "status success";
+                        contactForm.reset();
+                    }, 2500);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
