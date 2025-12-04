@@ -1,168 +1,440 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patrick Gonzalez | Portfolio</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio | Persistent Storage Project</title>
 
     <!--
-        Project: 3.9 - Creating and Referencing DOM Elements
-        Author: Patrick Gonzalez
-        Date: 11/26/2025
-        Description:
-        Portfolio page that demonstrates DOM manipulation by:
-        - Dynamically creating and inserting new elements.
-        - Selecting and modifying existing elements with querySelector
-          and getElementById.
-        - Using timing functions (setTimeout) to enhance the contact
-          form with a delayed confirmation message.
+        Name: Patrick Gonzalez
+        Project: 4.8 Persistent Storage
+        Date: (update to today's date)
+
+        Purpose:
+        This page demonstrates persistent storage features using
+        session-style UI and localStorage. It includes:
+        - A custom welcome modal that appears on page load.
+        - A tooltip on the Contact form Submit button.
+        - A Dark Mode theme that is saved in localStorage and
+          automatically applied on later visits.
     -->
 
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* -------------------------------
+           Base layout & typography styles
+           ------------------------------- */
+        :root {
+            --bg-color: #f4f4f8;
+            --text-color: #222222;
+            --accent-color: #0066cc;
+            --card-bg: #ffffff;
+            --border-radius: 10px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            padding: 1rem 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        nav {
+            margin-top: 0.5rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: 1rem;
+            font-size: 0.95rem;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        /* -------------------------------
+           Dark mode styles
+           ------------------------------- */
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #f1f1f1;
+            --card-bg: #1e1e1e;
+        }
+
+        body.dark-mode header {
+            background-color: #111827;
+        }
+
+        body.dark-mode a {
+            color: #bfdbfe;
+        }
+
+        /* Dark mode toggle container */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            margin-top: 0.75rem;
+        }
+
+        .theme-toggle label {
+            cursor: pointer;
+        }
+
+        /* Simple switch-style checkbox */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 22px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cccccc;
+            transition: 0.25s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.25s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #4ade80;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(18px);
+        }
+
+        /* -------------------------------
+           Contact form & tooltip styles
+           ------------------------------- */
+        form {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #cccccc;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            position: relative; /* needed for tooltip */
+        }
+
+        button[type="submit"]:hover {
+            opacity: 0.95;
+        }
+
+        /* Tooltip attached to the Submit button */
+        .tooltip-text {
+            position: absolute;
+            bottom: 135%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333333;
+            color: #ffffff;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+            z-index: 5;
+        }
+
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333333 transparent transparent transparent;
+        }
+
+        button[type="submit"]:hover .tooltip-text {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* -------------------------------
+           Modal overlay & content styles
+           ------------------------------- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.45); /* transparent dark background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .modal-overlay.is-visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            padding: 1.8rem;
+            border-radius: 12px;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-content p {
+            margin-top: 0;
+            margin-bottom: 1.2rem;
+        }
+
+        .modal-content button {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            opacity: 0.95;
+        }
+
+        /* Adjust modal colors in dark mode */
+        body.dark-mode .modal-content {
+            background-color: #111827;
+            color: #e5e7eb;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem 0;
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
 <body>
+    <!-- Welcome modal that appears on page load -->
+    <div id="welcomeModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Welcome!</h2>
+            <p>This page is a work in progress. New features will be added soon.</p>
+            <button id="closeModalBtn" type="button">Close</button>
+        </div>
+    </div>
+
     <header>
-        <h1>Patrick Gonzalez, Portfolio</h1>
+        <h1>Patrick Gonzalez | Web Project</h1>
         <nav>
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
         </nav>
+
+        <!-- Dark mode toggle with label -->
+        <div class="theme-toggle">
+            <span>Dark Mode:</span>
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle" />
+                <span class="slider"></span>
+            </label>
+        </div>
     </header>
 
     <main>
-        <!-- About section -->
         <section id="about">
-            <h2>About Me</h2>
+            <h2>About This Page</h2>
             <p>
-                I am a software development student focusing on web technologies
-                like HTML, CSS, and JavaScript. This portfolio showcases the work
-                I have completed throughout my SDC355 course.
+                This portfolio page demonstrates persistent storage concepts in JavaScript.
+                A custom welcome modal appears when the page loads, and Dark Mode preferences
+                are stored using <code>localStorage</code> so they stay in place across visits.
             </p>
         </section>
 
-        <!-- Projects section (JavaScript will append new content here) -->
-        <section id="projects-section">
-            <h2 id="projects">Projects</h2>
-
-            <ul class="project-list">
-                <li>Responsive storefront homepage using HTML &amp; CSS.</li>
-                <li>Blog layout with styled typography and navigation.</li>
-                <li>JavaScript exercises: loops, control structures, and DOM events.</li>
-            </ul>
+        <section id="projects">
+            <h2>Featured Work</h2>
+            <p>
+                Here you can highlight one or more projects, assignments, or experiences.
+                You can customize this text later as the course continues.
+            </p>
         </section>
 
-        <!-- Contact section with form -->
         <section id="contact">
             <h2>Contact Me</h2>
-            <p>Have a question about my projects or coursework? Send me a message below.</p>
-
-            <form id="contact-form">
-                <div class="form-row">
+            <p>Use the form below to send a quick message.</p>
+            <form>
+                <div>
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
+                    <input id="name" type="text" placeholder="Your name" />
                 </div>
-
-                <div class="form-row">
+                <div>
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                    <input id="email" type="email" placeholder="you@example.com" />
                 </div>
-
-                <div class="form-row">
+                <div>
                     <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
+                    <textarea id="message" placeholder="Type your message here..."></textarea>
                 </div>
 
-                <button type="submit">Send Message</button>
+                <!-- Submit button with tooltip -->
+                <button id="submitBtn" type="submit">
+                    Submit
+                    <span class="tooltip-text">Click to send your message!</span>
+                </button>
             </form>
-
-            <!-- Status text that JavaScript will update -->
-            <p id="form-status" class="status"></p>
         </section>
     </main>
 
     <footer>
-        <p>&copy; <span id="year"></span> Patrick Gonzalez. All rights reserved.</p>
+        &copy; <span id="yearSpan"></span> Patrick Gonzalez. All rights reserved.
     </footer>
 
-    <!-- ===================== JavaScript ===================== -->
     <script>
-        /*
-          3.9 Project - Creating and Referencing DOM Elements
-          This script:
-          - Dynamically adds new DOM elements (notification banner and latest project).
-          - Uses selectors to modify existing elements and styles.
-          - Enhances the contact form with a timed confirmation using setTimeout().
-        */
+        // -----------------------------------------------
+        // Utility: update footer year
+        // -----------------------------------------------
+        document.getElementById("yearSpan").textContent =
+            new Date().getFullYear();
 
-        // Run when the DOM is fully loaded
-        document.addEventListener("DOMContentLoaded", function () {
+        // -----------------------------------------------
+        // Modal logic: show on load, close on button click
+        // -----------------------------------------------
+        const welcomeModal = document.getElementById("welcomeModal");
+        const closeModalBtn = document.getElementById("closeModalBtn");
 
-            // ---------- 0. Set footer year ----------
-            const yearSpan = document.getElementById("year");
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
-            }
+        // Show the modal when the page loads
+        // (You can enhance later to show once per session if desired.)
+        window.addEventListener("load", function () {
+            welcomeModal.classList.add("is-visible");
+        });
 
-            // ---------- 1. Dynamically add new elements ----------
+        // Hide the modal when Close is clicked
+        closeModalBtn.addEventListener("click", function () {
+            welcomeModal.classList.remove("is-visible");
+        });
 
-            // 1a. Add a new paragraph about the latest project to the Projects section
-            const projectsSection = document.getElementById("projects-section");
-            if (projectsSection) {
-                const newProjectPara = document.createElement("p");
-                newProjectPara.textContent =
-                    "Latest project: An interactive JavaScript portfolio that uses DOM manipulation and timing functions.";
-                newProjectPara.classList.add("new-project");
-                projectsSection.appendChild(newProjectPara);
-            }
-
-            // 1b. Add a notification banner at the top of the page after a short delay
-            setTimeout(function () {
-                const banner = document.createElement("div");
-                banner.id = "page-notice";
-                banner.textContent =
-                    "Welcome! This page is part of my SDC355 JavaScript project.";
-                // Insert banner as the first child inside <body>
-                document.body.insertBefore(banner, document.body.firstChild);
-            }, 2000);
-
-            // ---------- 2. Reference & modify existing elements ----------
-
-            // 2a. Update the main heading text using querySelector()
-            const mainHeading = document.querySelector("header h1");
-            if (mainHeading) {
-                mainHeading.textContent = "Patrick Gonzalez | Web Development Portfolio";
-            }
-
-            // 2b. Add styling to the About section using getElementById()
-            const aboutSection = document.getElementById("about");
-            if (aboutSection) {
-                aboutSection.classList.add("highlight-section");
-            }
-
-            // ---------- 3. Timed confirmation for the contact form ----------
-
-            const contactForm = document.getElementById("contact-form");
-            const statusArea = document.getElementById("form-status");
-
-            if (contactForm && statusArea) {
-                contactForm.addEventListener("submit", function (event) {
-                    // Prevent the default submit (no page reload)
-                    event.preventDefault();
-
-                    // Show a loading / sending message immediately
-                    statusArea.textContent = "Sending message...";
-                    statusArea.className = "status sending";
-
-                    // Simulate a delay of 2.5 seconds before confirming
-                    setTimeout(function () {
-                        statusArea.textContent = "Message sent successfully!";
-                        statusArea.className = "status success";
-                        contactForm.reset();
-                    }, 2500);
-                });
+        // Optional: close modal if user clicks outside the box
+        welcomeModal.addEventListener("click", function (event) {
+            if (event.target === welcomeModal) {
+                welcomeModal.classList.remove("is-visible");
             }
         });
+
+        // -----------------------------------------------
+        // Dark mode persistence using localStorage
+        // -----------------------------------------------
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const DARK_MODE_KEY = "pg_dark_mode_enabled";
+
+        // Apply the stored theme preference on initial load
+        function applyStoredTheme() {
+            const savedPreference = localStorage.getItem(DARK_MODE_KEY);
+            const isDark = savedPreference === "true";
+
+            document.body.classList.toggle("dark-mode", isDark);
+            darkModeToggle.checked = isDark;
+        }
+
+        applyStoredTheme(); // run once on script load
+
+        // Whenever the toggle changes, update body class and storage
+        darkModeToggle.addEventListener("change", function () {
+            const isDarkMode = darkModeToggle.checked;
+            document.body.classList.toggle("dark-mode", isDarkMode);
+            localStorage.setItem(DARK_MODE_KEY, String(isDarkMode));
+        });
+
+        // ------------------------------------------------
+        // NOTE: Any previous prompt() for user name has
+        // been removed and replaced by the custom modal.
+        // ------------------------------------------------
     </script>
 </body>
 </html>
